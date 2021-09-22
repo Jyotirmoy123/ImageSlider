@@ -1,38 +1,74 @@
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
+import 'carousel.dart';
 
 void main() {
-  runApp(MaterialApp( debugShowCheckedModeBanner:false,home: MySlider())); 
+  runApp(MyApp());
 }
 
-class MySlider extends StatelessWidget {
+class MyApp extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-  
- return Scaffold(
-   body: Center(
-   child:CarouselSlider(
-     options: CarouselOptions(height: 400,autoPlay: true,enlargeCenterPage: true,),
-     items: _imgURl.map((imagepath)
-     {
-      return Builder(builder:(BuildContext context){ 
-      return Container(
-      width:MediaQuery.of(context).size.width,
-      margin:EdgeInsets.symmetric (horizontal: 5.0),
-      child:Image.network(imagepath)
-
-       ); 
-       },
-       );
-       }
-       ).toList(),),));
+    return MaterialApp(
+      title: 'Image Slider',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        
+        primarySwatch: Colors.blue,
+      ),
+      home: DestinationCarousel(),
+    );
   }
-  final List _source=[Colors.red,Colors.black,Colors.yellow];
-  final _imgURl=['images/141285980_2871439943175944_5339100608751989090_n.jpg',
-  'images/174206819_314888083314519_5707056513242340894_n.jpg',
-  'images/20210407032243_1.jpg',
-  'images/the-flash-season-3-duet-image-5.jpg',
-  'images/wp8158628.jpg']; //give image path
+}
+
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key? key, required this.title}) : super(key: key);
+  final String title;
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      
+      _counter++;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    
+    return Scaffold(
+      appBar: AppBar(
+        
+        title: Text(widget.title),
+      ),
+      body: Center(
+        
+        child: Column(
+      
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'You have pushed the button this many times:',
+            ),
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.headline4,
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: Icon(Icons.add),
+      ), 
+    );
+  }
 }
